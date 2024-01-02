@@ -1,6 +1,8 @@
-# test00
-스프링 초기 설정 파일 (test00)
+# SPR_file_upload
+스프링 프레임워크 MVC : 파일 업로드 기능 구현
 
-### 파일 디렉터리 구성
-![image](https://github.com/Eumnya415/test00/assets/145963611/6e5aeb91-c7c6-4192-bb41-1cc8e057222f)
+### 파일 디렉터리 구성 
+추가 기능 구현중
+![image](https://github.com/Eumnya415/SPR_file_upload/assets/145963611/6e791651-bd91-49a9-af22-04f8ae7be618)
+
 
