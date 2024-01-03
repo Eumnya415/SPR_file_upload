@@ -97,7 +97,10 @@
                             str += "<li><img src='/resources/img/attach.png'>"
                                 + obj.fileName + "</li>";
                         } else {
-                            str += "<li>" + obj.fileName + "</li>";
+                            // str += "<li>" + obj.fileName + "</li>";
+                            var fileCallPath = encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid+"_"+obj.fileName);
+
+                            str += "<li><img src='/display?fileName="+fileCallPath+"'><li>";
                         }
                     });
 
