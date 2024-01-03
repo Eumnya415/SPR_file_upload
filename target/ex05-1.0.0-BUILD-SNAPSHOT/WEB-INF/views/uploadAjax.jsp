@@ -8,6 +8,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function (){
+            let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$"); // 차단시키고 싶은 확장자 입력
+            let maxSize = 5242880; //5MB
+
+            function checkExtension(fileName, fileSize) {
+
+                if (fileSize >= maxSize) {
+                    alert("파일 사이즈 초과");
+                    return false;
+                }
+
+                if (regex.test(fileName)) {
+                    alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                    return false;
+                }
+                return true;
+            }
+
+            let cloneObj = $(".uploadDiv").clone();
             $("#uploadBtn").on("click", function (e){
                 let formData = new FormData();
                 let inputFile = $("input[name='uploadFile']");
@@ -15,7 +33,11 @@
                 console.log(files);
 
                 //add File Data to formData
-                for(var i = 0; i < files.length; i++){
+                for(let i = 0; i < files.length; i++){
+
+                    if(!checkExtension(files[i].name, files[i].size)){
+                        return false;
+                    }
 
                     formData.append("uploadFile", files[i]);
 
@@ -27,10 +49,32 @@
                     contentType: false,
                     data: formData,
                     type: 'POST',
+                    dataType: 'json',
                     success: function(result){
-                        alert("Uploaded");
+
+                        console.log(result);
+
+                        showUploadedFile(result)
+
+                        $(".uploadDiv").html(cloneObj.html());
+
                     }
                 });//$.ajax
+
+                let uploadResult = $(".uploadResult ul");
+
+                function showUploadedFile(uploadResultArr) {
+
+                    let str = "";
+
+                    $(uploadResultArr).each(function(i, obj) {
+
+                        str += "<li>" + obj.fileName + "</li>";
+
+                    });
+
+                    uploadResult.append(str);
+                }
             });
         });
     </script>
@@ -41,6 +85,12 @@
 
 <div class='uploadDiv'>
     <input type='file' name='uploadFile' multiple>
+</div>
+
+<div class='uploadResult'>
+    <ul>
+
+    </ul>
 </div>
 
 <button id="uploadBtn">Upload</button>
