@@ -3,6 +3,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        .uploadResult {
+            width: 100%;
+            background-color: gray;
+        }
+
+        .uploadResult ul {
+            display: flex;
+            flex-flow: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .uploadResult ul li {
+            list-style: none;
+            padding: 10px;
+            align-content: center;
+            text-align: center;
+        }
+
+        .uploadResult ul li img {
+            width: 100px;
+        }
+    </style>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Upload with Ajax</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -67,10 +91,14 @@
 
                     let str = "";
 
-                    $(uploadResultArr).each(function(i, obj) {
+                    $(uploadResultArr).each(function (i, obj) {
 
-                        str += "<li>" + obj.fileName + "</li>";
-
+                        if (!obj.image) {
+                            str += "<li><img src='/resources/img/attach.png'>"
+                                + obj.fileName + "</li>";
+                        } else {
+                            str += "<li>" + obj.fileName + "</li>";
+                        }
                     });
 
                     uploadResult.append(str);
